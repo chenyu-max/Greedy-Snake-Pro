@@ -3,12 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <title>Greedy-Snake-Pro</title>
-        <link rel="stylesheet" href="./src/CSS/reseat.css">
+        <link rel="stylesheet" href="src/CSS/index.css">
     </head>
     <body>
+
+        <div class="btn-container">
+            <div class="speed-control">
+                <button id="speed-down">难度降低</button>
+                <div id="speed"></div>
+                <button id="speed-up">难度提升</button>
+            </div>
+            <button id="start">开始游戏</button>
+            <button id="restart" style="display: none">重新开始</button>
+        </div>
+
+
         <script src="./src/js/utils.js"></script>
         <script src="./src/js/initVar.js"></script>
         <script src="./src/js/SquareFactory.js"></script>
         <script src="./src/js/Ground.js"></script>
+        <script src="./src/js/Snake.js"></script>
+        <script src="./src/js/Game.js"></script>
+        <script src="src/js/handleEvent.js"></script>
     </body>
 </html>

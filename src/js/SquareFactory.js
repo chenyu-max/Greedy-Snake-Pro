@@ -2,51 +2,57 @@ function SquareFactory() {
 
 }
 
-SquareFactory.create = function (type, x, y, color) {
+SquareFactory.create = function (type, x, y, className) {
     if (typeof SquareFactory.prototype[type] == 'undefined') {
         throw new Error('no this type');
     }
     if (SquareFactory.prototype[type].prototype.__proto__ !== SquareFactory.prototype) {
         SquareFactory.prototype[type].prototype = new SquareFactory();
     }
-    return SquareFactory.prototype[type](x, y, color);
+    return SquareFactory.prototype[type](x, y, className);
 };
 
-SquareFactory.prototype.init = function (square, color) {
+SquareFactory.prototype.init = function (square, className, message) {
     square.viewContent.style.position = 'absolute';
     square.viewContent.style.width = square.width + 'px';
     square.viewContent.style.height = square.height + 'px';
-    square.viewContent.style.backgroundColor = color;
+    square.type = className;
+    square.viewContent.className = className;
     square.viewContent.style.left = square.x * SquareSize + 'px';
     square.viewContent.style.top = square.y * SquareSize + 'px';
+    square.touch = function () {
+        return message;
+    };
 };
 
-SquareFactory.prototype.Floor = function (x, y, color) {
+SquareFactory.prototype.Floor = function (x, y, className) {
     const oFloor = new Floor(x, y, SquareSize, SquareSize);
-    this.init(oFloor, color);
+    this.init(oFloor, className, StrategyEnum.MOVE);
     return oFloor;
 }
 
-SquareFactory.prototype.Stone = function (x, y, color) {
+SquareFactory.prototype.Stone = function (x, y, className) {
     const oStone = new Stone(x, y, SquareSize, SquareSize);
-    this.init(oStone, color);
+    this.init(oStone, className, StrategyEnum.DIE);
     return oStone;
 }
 
-SquareFactory.prototype.Food = function (x, y, color) {
+SquareFactory.prototype.Food = function (x, y, className) {
     const oFood = new Food(x, y, SquareSize, SquareSize);
-    this.init(oFood, color);
+    this.init(oFood, className, StrategyEnum.EAT);
+    oFood.update(x, y);
     return oFood;
 }
 
-SquareFactory.prototype.SnakeHead = function (x, y, color) {
+SquareFactory.prototype.SnakeHead = function (x, y, className) {
     const oSnakeHead = new SnakeHead(x, y, SquareSize, SquareSize);
-    this.init(oSnakeHead, color);
+    this.init(oSnakeHead, className, StrategyEnum.DIE);
+    oSnakeHead.update(x, y);
     return oSnakeHead;
 }
 
-SquareFactory.prototype.SnakeBody = function (x, y, color) {
+SquareFactory.prototype.SnakeBody = function (x, y, className) {
     const oSnakeBody = new SnakeBody(x, y, SquareSize, SquareSize);
-    this.init(oSnakeBody, color);
+    this.init(oSnakeBody, className, StrategyEnum.DIE);
     return oSnakeBody;
 }
