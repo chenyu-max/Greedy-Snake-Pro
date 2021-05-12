@@ -20,7 +20,7 @@ speed.innerHTML = Level + '';
 speedUp.onclick = function () {
     if (Level < 8) {
         Level += 1;
-        Interval -= 20;
+        Interval -= 30;
     }
     speed.innerHTML = Level + '';
 }
@@ -29,7 +29,7 @@ speedUp.onclick = function () {
 speedDown.onclick = function () {
     if (Level > 1) {
         Level -= 1;
-        Interval += 20;
+        Interval += 30;
     }
     speed.innerHTML = Level + '';
 }
